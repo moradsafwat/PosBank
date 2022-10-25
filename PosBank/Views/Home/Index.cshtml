@@ -138,13 +138,13 @@
                             <div class="col-5">
                                 <div class="form-group">
                                     <label>Size Name</label>
-                                    <input asp-for="Product.Size" class="form-control" />
+                                    <input asp-for="Product.ProductsDetails[0].Size" data-key='0' class="form-control" />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Size Price</label>
-                                    <input asp-for="Product.Price" class="form-control" />
+                                    <input asp-for="Product.ProductsDetails[0].Price" data-key='0' class="form-control" />
                                 </div>
                             </div>
                             <div class="col-3">
@@ -171,7 +171,7 @@
     <script type="text/javascript">
         $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
-            const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
+            const sizesLength = documen t.querySelectorAll('div[for="sizes"]').length;
             const sizeInputs = $(size).find("input.form-control");
             $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${sizesLength}].Size`);
             $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${sizesLength}].Price`);
