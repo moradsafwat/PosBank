@@ -182,6 +182,13 @@
 
         $(document).on('click', '.remove-size', function () {
             $(this).closest('div[for="sizes"]').remove();
+             const sizes = $('div[for="sizes"]');
+             for(let index in sizes)
+             {
+                let sizeInputs = $(sizes[index]).find("input.form-control");
+                $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
+                $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
+             }
         });
     </script>
 }
