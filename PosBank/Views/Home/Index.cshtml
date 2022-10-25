@@ -1,0 +1,183 @@
+﻿@model PosBank.ViewModels.HomePageViewModel
+
+@{
+    ViewData["Title"] = "Home page";
+    var i = 1;
+}
+
+<div class="page-header d-md-flex justify-content-between">
+    <div>
+        <h3>Users</h3>
+        <nav aria-label="breadcrumb" class="d-flex align-items-start">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-action="index" asp-controller="home">Items Management</a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="mt-2 mt-md-0">
+        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#mdlNew" title="Add new item">Add new item</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="user-list" class="table table-lg">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Sizes</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProductsVM)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i++)
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Products" asp-action="DetailsProduct" asp-route-id="@item.Id">
+                                            @if (item.PictureVM != null)
+                                            {
+                                                <figure class="avatar avatar-sm mr-2">
+                                                    <img src="~/assets/media/Uploads/@item.PictureVM"
+                                                         class="rounded-circle" alt="avatar">
+                                                </figure>
+                                            }
+                                            else
+                                            {
+                                                <figure class="avatar avatar-sm mr-2">
+                                                    <img src="../../assets/media/image/user/man_avatar3.jpg"
+                                                         class="rounded-circle" alt="avatar">
+                                                </figure>
+                                            }
+
+                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FixedPrice)
+                                    </td>
+                                    <td>
+                                        0
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="dropdown"
+                                               class="btn btn-floating"
+                                               aria-haspopup="true" aria-expanded="false">
+                                                <i class="ti-more-alt"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a asp-action="EditProduct" asp-route-id="@item.Id" class="dropdown-item text-success">Edit</a>
+                                                <a asp-controller="Products" asp-action="DeleteProduct" asp-route-id="@item.Id" class="dropdown-item text-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mdlNew" class="modal fade modal-item" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Add new item</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close"></i>
+                </button>
+            </div>
+            <form asp-controller="Products" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                <div id="frmItem">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input asp-for="Product.ProductName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input asp-for="Product.FixedPrice" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Picture</label>
+                                    <input type="file"
+                                           accept="image/*"
+                                           asp-for="Product.PictureUrl"
+                                           class="form-control"
+                                           palceholder="Select image" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" for="sizes">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Size Name</label>
+                                    <input asp-for="Product.Size" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Size Price</label>
+                                    <input asp-for="Product.Price" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group" style="margin-top: 17%;">
+                                    <a href="Javascript:void(0);" class="btn btn-success add-size">Add</a>
+                                    <a href="Javascript:void(0);" class="btn btn-success remove-size btn-danger">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <input type="submit" id="btnSaveHours" class="btn btn-primary" value="Save" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).on('click', '.add-size', function () {
+            var size = $('div[for="sizes"]:first').clone();
+
+            size.find('.add-size').remove();
+            $('#frmItem .modal-body').append(size);
+        });
+
+        $(document).on('click', '.remove-size', function () {
+            $(this).closest('div[for="sizes"]').remove();
+        });
+    </script>
+}

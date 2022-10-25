@@ -1,0 +1,24 @@
+﻿using AutoMapper;
+using PosBank.Models;
+using PosBank.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PosBank.Mapping
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Product, ProductViewModel>()
+                .ForMember(d => d.PictureVM, s => s.MapFrom(s => s.Picture));
+            CreateMap<ProductViewModel, Product>()
+                .ForMember(d => d.Picture, s => s.MapFrom(s => s.PictureVM));
+            CreateMap<HomePageViewModel, ProductViewModel>();
+            CreateMap<ProductDetails, ProductDetailsViewModel>();
+            CreateMap<ProductDetailsViewModel, ProductDetails>();
+        }
+    }
+}

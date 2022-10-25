@@ -1,0 +1,42 @@
+﻿@model PosBank.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "DetailsProduct";
+}
+
+<div class="page-header d-md-flex justify-content-between">
+    <div>
+        <h2 class="text-center">Details Product</h2>
+        <nav aria-label="breadcrumb" class="d-flex align-items-start">
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                @if (Model.PictureVM != null)
+                {
+                    <img class="card-img-top" src="~/assets/media/Uploads/@Model.PictureVM" alt="Product image ...">
+                }
+                else
+                {
+                    <img class="card-img-top" src="~/assets/media/image/products/product10.png" alt="Product image ...">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(model => model.ProductName)</h5>
+                    <h4 class="card-text"> Price : @Model.FixedPrice </h4>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> 
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
