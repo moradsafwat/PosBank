@@ -50,14 +50,19 @@
                                             {
                                                 <figure class="avatar avatar-sm mr-2">
                                                     <img src="~/assets/media/Uploads/@item.PictureVM"
-                                                         class="rounded-circle" alt="avatar">
+                                                 class="rounded-circle" alt="avatar">
                                                 </figure>
                                             }
                                             else
                                             {
                                                 <figure class="avatar avatar-sm mr-2">
+<<<<<<< HEAD
                                                     <img src="~/assets/media/image/products/product1.png" 
                                                          class="rounded-circle" alt="avatar">
+=======
+                                                    <img src="../../assets/media/image/user/man_avatar3.jpg"
+                                                 class="rounded-circle" alt="avatar">
+>>>>>>> 38238e5e9dd987b0c793c3447763b0023210b491
                                                 </figure>
                                             }
 
@@ -73,8 +78,8 @@
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a href="#" data-toggle="dropdown"
-                                               class="btn btn-floating"
-                                               aria-haspopup="true" aria-expanded="false">
+                                           class="btn btn-floating"
+                                           aria-haspopup="true" aria-expanded="false">
                                                 <i class="ti-more-alt"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right">
@@ -168,6 +173,7 @@
 </div>
 @section Scripts
 {
+<<<<<<< HEAD
     <script type="text/javascript">
         $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
@@ -175,13 +181,31 @@
             const sizeInputs = $(size).find("input.form-control");
             $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${sizesLength}].Size`);
             $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${sizesLength}].Price`);
+=======
+<script type="text/javascript">
+    $(document).on('click', '.add-size', function () {
+        var size = $('div[for="sizes"]:first').clone();
+        const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
+        setIndexToProductSize(size, sizesLength);
+>>>>>>> 38238e5e9dd987b0c793c3447763b0023210b491
 
-            size.find('.add-size').remove();
-            $('#frmItem .modal-body').append(size);
-        });
+        size.find('.add-size').remove();
+        $('#frmItem .modal-body').append(size);
+    });
 
-        $(document).on('click', '.remove-size', function () {
-            $(this).closest('div[for="sizes"]').remove();
-        });
-    </script>
+    $(document).on('click', '.remove-size', function () {
+        $(this).closest('div[for="sizes"]').remove();
+         const sizes = $('div[for="sizes"]');
+         for(let index in sizes)
+         {
+             setIndexToProductSize(sizes[index], index);
+         }
+    });
+
+    const setIndexToProductSize = (size, index) => {
+        let sizeInputs = $(size).find("input.form-control");
+        $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
+        $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
+    }
+</script>
 }
