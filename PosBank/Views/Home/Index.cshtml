@@ -173,7 +173,6 @@
             var size = $('div[for="sizes"]:first').clone();
             const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
             const sizeInputs = $(size).find("input.form-control");
-            console.log(sizeInputs);
             $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${sizesLength}].Size`);
             $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${sizesLength}].Price`);
 
