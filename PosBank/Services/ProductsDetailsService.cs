@@ -29,5 +29,10 @@ namespace PosBank.Services
         {
             _productDetailsRepository.AddRange(_mapper.Map<IEnumerable<ProductDetails>>(productsVm));
         }
+
+        public IEnumerable<ProductDetailsViewModel> DetailsJoinProduct()
+        {
+            return _mapper.Map<IEnumerable<ProductDetailsViewModel>>(_productDetailsRepository.DetailsJoinProduct());
+        }
     }
 }

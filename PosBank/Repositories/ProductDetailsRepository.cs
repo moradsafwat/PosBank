@@ -1,4 +1,5 @@
-﻿using PosBank.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PosBank.Models;
 using PosBank.Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ namespace PosBank.Repositories
         public ProductDetailsRepository(PosbankDbContext _db) : base(_db)
         {
 
+        }
+
+        public IEnumerable<ProductDetails> DetailsJoinProduct()
+        {
+            return _db.ProductsDetails.Include(P => P.Product)
+                            .ToList().OrderBy(o => o.Product.ProductName);
         }
     }
 }

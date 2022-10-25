@@ -28,7 +28,7 @@ namespace PosBank.Controllers
         // GET: ProductsController
         public ActionResult Index()
         {
-            return View(_productsService.AllProductDetails());
+            return View(_productsDetailsService.DetailsJoinProduct());
         }
 
         // GET: ProductsController/Details/5
@@ -77,7 +77,7 @@ namespace PosBank.Controllers
         }
 
         // GET: ProductsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult EditProduct(int id)
         {
             return View();
         }
@@ -85,7 +85,7 @@ namespace PosBank.Controllers
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditProduct(int id, IFormCollection collection)
         {
             try
             {

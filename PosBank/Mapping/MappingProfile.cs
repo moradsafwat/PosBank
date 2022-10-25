@@ -16,9 +16,13 @@ namespace PosBank.Mapping
                 .ForMember(d => d.PictureVM, s => s.MapFrom(s => s.Picture));
             CreateMap<ProductViewModel, Product>()
                 .ForMember(d => d.Picture, s => s.MapFrom(s => s.PictureVM));
+            
             CreateMap<HomePageViewModel, ProductViewModel>();
-            CreateMap<ProductDetails, ProductDetailsViewModel>();
+            
+            CreateMap<ProductDetails, ProductDetailsViewModel>()
+                .ForMember(d => d.Product_Name, s => s.MapFrom(s => s.Product.ProductName));
             CreateMap<ProductDetailsViewModel, ProductDetails>();
+
         }
     }
 }
