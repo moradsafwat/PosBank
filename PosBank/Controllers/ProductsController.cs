@@ -55,10 +55,8 @@ namespace PosBank.Controllers
                 {
                     if (productVM.Product.PictureUrl != null)
                     {
-                        string uploads = Path.Combine(_webHost.WebRootPath, "assets/media/Uploads");
                         fileName = productVM.Product.PictureUrl.FileName;
-
-                        string fullPath = Path.Combine(uploads, fileName);
+                        string fullPath = Path.Combine(Path.Combine(_webHost.WebRootPath, "assets/media/Uploads"), fileName);
                         productVM.Product.PictureUrl.CopyTo(new FileStream(fullPath, FileMode.Create));
                     };
 

@@ -17,8 +17,6 @@ namespace PosBank.ViewModels
 
 
         public int  productId { get; set; }
-        public string  Size { get; set; }
-        public decimal  Price { get; set; }
-        public IEnumerable<ProductDetailsViewModel> ProductsDetails { get; set; }
+        public IList<ProductDetailsViewModel> ProductsDetails { get; set; }
     }
 }
