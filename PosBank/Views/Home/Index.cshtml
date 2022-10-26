@@ -50,13 +50,13 @@
                                             {
                                                 <figure class="avatar avatar-sm mr-2">
                                                     <img src="~/assets/media/Uploads/@item.PictureVM"
-                                                         class="rounded-circle" alt="avatar">
+                                                 class="rounded-circle" alt="avatar">
                                                 </figure>
                                             }
                                             else
                                             {
                                                 <figure class="avatar avatar-sm mr-2">
-                                                    <img src="~/assets/media/image/products/product1.png"
+                                                    <img src="~/assets/media/image/products/product1.png" 
                                                          class="rounded-circle" alt="avatar">
                                                 </figure>
                                             }
@@ -73,8 +73,8 @@
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a href="#" data-toggle="dropdown"
-                                               class="btn btn-floating"
-                                               aria-haspopup="true" aria-expanded="false">
+                                           class="btn btn-floating"
+                                           aria-haspopup="true" aria-expanded="false">
                                                 <i class="ti-more-alt"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right">
@@ -172,24 +172,27 @@
         $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
             const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
-            setIndexToProductSize(size, sizesLength);
+            const sizeInputs = $(size).find("input.form-control");
+            $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${sizesLength}].Size`);
+            $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${sizesLength}].Price`);
 
-            size.find('.add-size').remove();
-            $('#frmItem .modal-body').append(size);
-        });
+        size.find('.add-size').remove();
+        $('#frmItem .modal-body').append(size);
+    });
 
-        $(document).on('click', '.remove-size', function () {
-            $(this).closest('div[for="sizes"]').remove();
-            const sizes = $('div[for="sizes"]');
-            for (let index in sizes) {
-                setIndexToProductSize(sizes[index], index);
-            }
-        });
+    $(document).on('click', '.remove-size', function () {
+        $(this).closest('div[for="sizes"]').remove();
+         const sizes = $('div[for="sizes"]');
+         for(let index in sizes)
+         {
+             setIndexToProductSize(sizes[index], index);
+         }
+    });
 
-        const setIndexToProductSize = (size, index) => {
-            let sizeInputs = $(size).find("input.form-control");
-            $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
-            $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
-        }
-    </script>
+    const setIndexToProductSize = (size, index) => {
+        let sizeInputs = $(size).find("input.form-control");
+        $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
+        $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
+    }
+</script>
 }
