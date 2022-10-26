@@ -1,18 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PosBank.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PosBank.Controllers
+namespace PosBank.Views.Orders
 {
     public class OrdersController : Controller
     {
+        private readonly IOrdersService _ordersService;
+        public OrdersController(IOrdersService ordersService)
+        {
+            _ordersService = ordersService;
+        }
+
         // GET: OrdersController
         public ActionResult Index()
         {
-            return View();
+            return View(_ordersService.GetAll());
         }
 
         // GET: OrdersController/Details/5

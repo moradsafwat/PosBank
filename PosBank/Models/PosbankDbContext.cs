@@ -17,11 +17,24 @@ namespace PosBank.Models
             base.OnModelCreating(builder);
             builder.Entity<Product>()
                 .HasMany(D => D.ProductsDetails)
-                .WithOne(P => P.Product )
+                .WithOne(P => P.Product)
                 .HasForeignKey(p => p.ProductId);
+
+            builder.Entity<OrderItem>()
+                .HasMany(p => p.OrderItem_ProductDetails)
+                .WithOne(o => o.OrderItem)
+                .HasForeignKey(f => f.OrderItemId);
+
+            builder.Entity<ProductDetails>()
+                .HasMany(p => p.OrderItem_ProductDetails)
+                .WithOne(p=> p.ProductDetails)
+                .HasForeignKey(f => f.ProductDetailsId);
         }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductDetails> ProductsDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderItem_ProductDetails> OrderItem_ProductDetails { get; set; }
     }
 }

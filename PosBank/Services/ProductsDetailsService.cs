@@ -34,5 +34,10 @@ namespace PosBank.Services
         {
             return _mapper.Map<IEnumerable<ProductDetailsViewModel>>(_productDetailsRepository.DetailsJoinProduct());
         }
+
+        public IEnumerable<ProductDetailsViewModel> DetailsWithProduct(int productId)
+        {
+            return _mapper.Map<IEnumerable<ProductDetailsViewModel>>(_productDetailsRepository.GetDetailsWithProduct(productId));
+        }
     }
 }

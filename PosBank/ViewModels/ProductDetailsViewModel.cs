@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PosBank.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +10,10 @@ namespace PosBank.ViewModels
     {
         public int Id { get; set; }
         public string Product_Name { get; set; }
+        public string Photo { get; set; }
         public string Size { get; set; }
         public decimal Price { get; set; }
         public int ProductId { get; set; }
+        public Product Product { get; set; }
     }
 }

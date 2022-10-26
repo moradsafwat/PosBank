@@ -25,7 +25,10 @@ namespace PosBank.Controllers
 
         public IActionResult Index()
         {
-            var products = new HomePageViewModel {ProductsVM = _productsService.GetAll() } ;
+            var products = new HomePageViewModel 
+            {
+                ProductsVM = _productsService.AllProductDetails(),
+            };
             return View(products);
         }
 

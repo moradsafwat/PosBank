@@ -9,6 +9,7 @@ namespace PosBank.Services.Interface
     public interface IProductsService
     {
         ProductViewModel GetById(int id);
+        ProductViewModel GetProductWithDetailsById(int id);
         IEnumerable<ProductViewModel> GetAll();
         void Create(ProductViewModel productVm);
         void Delete(ProductViewModel productVm);

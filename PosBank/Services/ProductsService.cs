@@ -42,12 +42,17 @@ namespace PosBank.Services
 
         public void Update(int id, ProductViewModel productVm)
         {
-            throw new NotImplementedException();
+            _productRepository.Update(id, _mapper.Map<Product>(productVm));
         }
 
         public IEnumerable<ProductViewModel> AllProductDetails()
         {
             return _mapper.Map<IEnumerable<ProductViewModel>>(_productRepository.GetProductsWithDetails());
+        }
+
+        public ProductViewModel GetProductWithDetailsById(int id)
+        {
+            return _mapper.Map<ProductViewModel>(_productRepository.GetProductsWithDetails(id));
         }
     }
 }

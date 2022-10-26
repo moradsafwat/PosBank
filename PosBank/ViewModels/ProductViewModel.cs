@@ -15,8 +15,7 @@ namespace PosBank.ViewModels
         public string PictureVM { get; set; }
         public decimal FixedPrice { get; set; }
 
-
         public int  productId { get; set; }
-        public IList<ProductDetailsViewModel> ProductsDetails { get; set; }
+        public List<ProductDetailsViewModel> ProductsDetails { get; set; }
     }
 }

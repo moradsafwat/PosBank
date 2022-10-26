@@ -32,11 +32,17 @@ namespace PosBank
             //Start Repository
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductDetailsRepository, ProductDetailsRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
             //
 
             //Start Service
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IProductsDetailsService, ProductsDetailsService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IOrderItemsService, OrderItemsService>();
+
             //
 
             // Connection String

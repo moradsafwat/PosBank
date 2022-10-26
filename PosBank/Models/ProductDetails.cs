@@ -15,5 +15,6 @@ namespace PosBank.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
+        public List<OrderItem_ProductDetails> OrderItem_ProductDetails { get; set; }
     }
 }

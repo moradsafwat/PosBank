@@ -9,5 +9,7 @@ namespace PosBank.Repositories.Interface
     public interface IProductDetailsRepository : IRepository<ProductDetails>
     {
         IEnumerable<ProductDetails> DetailsJoinProduct();
+        IEnumerable<ProductDetails> GetDetailsWithProduct(int productid);
+
     }
 }

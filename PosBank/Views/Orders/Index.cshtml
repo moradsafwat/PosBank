@@ -1,5 +1,8 @@
-﻿@{
+﻿@model IEnumerable<PosBank.ViewModels.OrderViewModel>
+
+@{
     ViewData["Title"] = "Home page";
+    var i = 1;
 }
 
 <div class="page-header d-md-flex justify-content-between">
@@ -33,36 +36,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>12345678</td>
-                                <td>1.6 BHD</td>
-                                <td>2022-04-11 10:15 AM</td>
-                                <td>
-                                    <a href="#" class="btn btn-success">Display</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jaffer</td>
-                                <td>87654321</td>
-                                <td>1.8 BHD</td>
-                                <td>2022-04-10 10:15 AM</td>
-                                <td>
-                                    <a href="#" class="btn btn-success">Display</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Mohammed</td>
-                                <td>65432198</td>
-                                <td>1.1 BHD</td>
-                                <td>2022-04-11 9:13 AM</td>
-                                <td>
-                                    <a href="#" class="btn btn-success">Display</a>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>@item.CustomerName</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.OrderAmount BHD</td>
+                                    <td>@item.Date</td>
+                                    <td>
+                                        <a href="#" class="btn btn-success">Display</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -141,7 +127,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).on('click', '.add-size', function(){
+        $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
 
             size.find('.add-size').remove();

@@ -12,13 +12,17 @@ namespace PosBank.Repositories
     {
         public ProductDetailsRepository(PosbankDbContext _db) : base(_db)
         {
-
         }
 
         public IEnumerable<ProductDetails> DetailsJoinProduct()
         {
             return _db.ProductsDetails.Include(P => P.Product)
                             .ToList().OrderBy(o => o.Product.ProductName);
+        }
+
+        public IEnumerable<ProductDetails> GetDetailsWithProduct(int id)
+        {
+            return _db.ProductsDetails.Where(d => d.ProductId == id).ToList();
         }
     }
 }

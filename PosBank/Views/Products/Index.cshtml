@@ -27,8 +27,17 @@
                         <div class="card-body">
                             <div class="my-3">
                                 <a asp-controller="Products" asp-action="DetailsProduct" asp-route-id="@item.ProductId" title="Vase">
-                                    <img src="~/assets/media/image/products/product1.png"
-                                         class="img-fluid rounded" alt="Vase">
+                                    @if (item.Photo != null)
+                                    {
+                                        <img src="~/assets/media/Uploads/@item.Photo"
+                                             class="img-fluid rounded" alt="Vase">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/assets/media/image/products/product1.png"
+                                             class="img-fluid rounded" alt="Vase">
+                                    }
+
                                 </a>
                             </div>
                             <div class="text-center">

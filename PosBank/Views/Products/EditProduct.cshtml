@@ -6,7 +6,7 @@
 <div class="modal-header">
     <h6 class="modal-title">Edit Product</h6>
 </div>
-<form asp-controller="Products" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Products" asp-action="EditProduct" method="post" enctype="multipart/form-data">
     <div id="frmItem">
         <input type="hidden" asp-for="Id" />
         <div class="modal-body">
@@ -38,30 +38,61 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row" for="sizes">
-                <div class="col-5">
-                    <div class="form-group">
-                        <label>Size Name</label>
-                        <input asp-for="ProductsDetails" class="form-control" />
+            @if (Model.ProductsDetails != null && Model.ProductsDetails.Count() > 1)
+            {
+                foreach (var item in Model.ProductsDetails)
+                {
+                    <div class="row" for="sizes">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>Size Name</label>
+                                <input asp-for="@item.Size" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Size Price</label>
+                                <input asp-for="@item.Price" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group" style="margin-top: 17%;">
+                                <a href="Javascript:void(0);" class="btn btn-success add-size">Add</a>
+                                <a href="Javascript:void(0);" class="btn btn-success remove-size btn-danger">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row" for="sizes">
+                    <div class="col-5">
+                        <div class="form-group">
+                            <label>Size Name</label>
+                            <input asp-for="ProductsDetails[0].Size" data-key='0' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Size Price</label>
+                            <input asp-for="ProductsDetails[0].Price" data-key='0' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group" style="margin-top: 17%;">
+                            <a href="Javascript:void(0);" class="btn btn-success add-size">Add</a>
+                            <a href="Javascript:void(0);" class="btn btn-success remove-size btn-danger">Remove</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label>Size Price</label>
-                        <input asp-for="ProductsDetails" class="form-control" />
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group" style="margin-top: 17%;">
-                        <a href="Javascript:void(0);" class="btn btn-success add-size">Add</a>
-                        <a href="Javascript:void(0);" class="btn btn-success remove-size btn-danger">Remove</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
-        <div class="card-footer">
-            <input type="submit" class="btn btn-primary" value="Save" />
+        <div class="row">
+            <div class="col-12">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-success">Back to List</a>
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
         </div>
     </div>
 </form>
@@ -70,51 +101,24 @@
     <script type="text/javascript">
         $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
-
+            const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
+            setIndexToProductSize(size, sizesLength);
             size.find('.add-size').remove();
             $('#frmItem .modal-body').append(size);
         });
-
         $(document).on('click', '.remove-size', function () {
             $(this).closest('div[for="sizes"]').remove();
+            const sizes = $('div[for="sizes"]');
+            for (let index in sizes) {
+                setIndexToProductSize(sizes[index], index);
+            }
         });
+        const setIndexToProductSize = (size, index) => {
+            let sizeInputs = $(size).find("input.form-control");
+            $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
+            $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
+        }
     </script>
 }
-
-
-
-
-
-@*<h1>EditProduct</h1>
-
-    <h4>Product</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="EditProduct">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="ProductName" class="control-label"></label>
-                    <input asp-for="ProductName" class="form-control" />
-                    <span asp-validation-for="ProductName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PictureUrl" class="control-label"></label>
-                    <input asp-for="PictureUrl" class="form-control" />
-                    <span asp-validation-for="PictureUrl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FixedPrice" class="control-label"></label>
-                    <input asp-for="FixedPrice" class="form-control" />
-                    <span asp-validation-for="FixedPrice" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index">Back to List</a>
-                </div>
-            </form>
-        </div>
-    </div>*@
-
 
 

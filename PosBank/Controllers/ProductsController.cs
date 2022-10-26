@@ -38,7 +38,7 @@ namespace PosBank.Controllers
         }
 
         // GET: ProductsController/Create
-        public ActionResult Create()
+        public ActionResult CreateProduct()
         {
             return View();
         }
@@ -58,10 +58,10 @@ namespace PosBank.Controllers
                         fileName = productVM.Product.PictureUrl.FileName;
                         string fullPath = Path.Combine(Path.Combine(_webHost.WebRootPath, "assets/media/Uploads"), fileName);
                         productVM.Product.PictureUrl.CopyTo(new FileStream(fullPath, FileMode.Create));
-                    };
-
+                    }
                     productVM.Product.PictureVM = fileName;
                     
+
                     _productsService.Create(productVM.Product);
                     return RedirectToAction("Index", "Home");
                 }
@@ -77,17 +77,38 @@ namespace PosBank.Controllers
         // GET: ProductsController/Edit/5
         public ActionResult EditProduct(int id)
         {
+            var product = _productsService.GetById(id);
+
+            if (product != null)
+            {
+                product.ProductsDetails = _productsDetailsService.DetailsWithProduct(id).ToList();
+                return View(product);
+            };
             return View();
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProduct(int id, IFormCollection collection)
+        public ActionResult EditProduct(int id, ProductViewModel productVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                string fileName = string.Empty;
+                if (ModelState.IsValid)
+                {
+                    if (productVM.PictureUrl != null)
+                    {
+                        fileName = productVM.PictureUrl.FileName;
+                        string fullPath = Path.Combine(Path.Combine(_webHost.WebRootPath, "assets/media/Uploads"), fileName);
+                        productVM.PictureUrl.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    };
+                    productVM.PictureVM = fileName;
+
+                    _productsService.Update(id, productVM);
+                    return RedirectToAction("Index", "Home");
+                }
+                return View();
             }
             catch
             {

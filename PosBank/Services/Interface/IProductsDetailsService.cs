@@ -9,6 +9,7 @@ namespace PosBank.Services.Interface
     public interface IProductsDetailsService
     {
         IEnumerable<ProductDetailsViewModel> DetailsJoinProduct();
+        IEnumerable<ProductDetailsViewModel> DetailsWithProduct(int productId);
         void Create(ProductDetailsViewModel productVm);
         void CreateRang(IEnumerable<ProductDetailsViewModel> productsVm);
 

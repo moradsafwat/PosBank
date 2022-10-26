@@ -8,7 +8,7 @@ namespace PosBank.Repositories.Interface
 {
     public interface IProductRepository : IRepository<Product>
     {
-        public IEnumerable<Product> GetProductsWithDetails();
-        
+        IEnumerable<Product> GetProductsWithDetails();
+        Product GetProductsWithDetails(int id);
     }
 }

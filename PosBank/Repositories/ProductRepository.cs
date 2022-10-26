@@ -15,8 +15,13 @@ namespace PosBank.Repositories
         }
         public IEnumerable<Product> GetProductsWithDetails()
         {
-            return _db.Products.Include(d => d.ProductsDetails)
-                .ToList();
+            return _db.Products.Include(d => d.ProductsDetails).ToList();
         }
+        public Product GetProductsWithDetails(int id)
+        {
+            return _db.Products.Include(d => d.ProductsDetails).Where(i => i.Id == id).SingleOrDefault();
+        }
+
+
     }
 }

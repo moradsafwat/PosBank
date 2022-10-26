@@ -50,35 +50,36 @@
                                             {
                                                 <figure class="avatar avatar-sm mr-2">
                                                     <img src="~/assets/media/Uploads/@item.PictureVM"
-                                                 class="rounded-circle" alt="avatar">
+                                                         class="rounded-circle" alt="product photo...">
                                                 </figure>
                                             }
                                             else
                                             {
-                                                <figure class="avatar avatar-sm mr-2">
-                                                    <img src="~/assets/media/image/products/product1.png" 
-                                                         class="rounded-circle" alt="avatar">
-                                                </figure>
+                                        <figure class="avatar avatar-sm mr-2">
+
+                                            <img src="~/assets/123.png" class="rounded-circle" alt="product photo..."/>
+                                                 
+                                        </figure>
                                             }
 
-                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                            @item.ProductName
                                         </a>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.FixedPrice)
+                                        @item.FixedPrice
                                     </td>
                                     <td>
-                                        0
+                                        @item.ProductsDetails.Count()
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a href="#" data-toggle="dropdown"
-                                           class="btn btn-floating"
-                                           aria-haspopup="true" aria-expanded="false">
+                                               class="btn btn-floating"
+                                               aria-haspopup="true" aria-expanded="false">
                                                 <i class="ti-more-alt"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a asp-action="EditProduct" asp-route-id="@item.Id" class="dropdown-item text-success">Edit</a>
+                                                <a asp-controller="Products" asp-action="EditProduct" asp-route-id="@item.Id" class="dropdown-item text-success">Edit</a>
                                                 <a asp-controller="Products" asp-action="DeleteProduct" asp-route-id="@item.Id" class="dropdown-item text-danger">Delete</a>
                                             </div>
                                         </div>
@@ -138,13 +139,13 @@
                             <div class="col-5">
                                 <div class="form-group">
                                     <label>Size Name</label>
-                                    <input asp-for="Product.ProductsDetails[0].Size" data-key='0' class="form-control" />
+                                    <input asp-for="Product.ProductsDetails[0].Size" data-key='0' class="form-control" required />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Size Price</label>
-                                    <input asp-for="Product.ProductsDetails[0].Price" data-key='0' class="form-control" />
+                                    <input asp-for="Product.ProductsDetails[0].Price" data-key='0' class="form-control" required />
                                 </div>
                             </div>
                             <div class="col-3">
@@ -172,27 +173,22 @@
         $(document).on('click', '.add-size', function () {
             var size = $('div[for="sizes"]:first').clone();
             const sizesLength = document.querySelectorAll('div[for="sizes"]').length;
-            const sizeInputs = $(size).find("input.form-control");
-            $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${sizesLength}].Size`);
-            $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${sizesLength}].Price`);
+            setIndexToProductSize(size, sizesLength);
+            size.find('.add-size').remove();
+            $('#frmItem .modal-body').append(size);
+        });
+        $(document).on('click', '.remove-size', function () {
+            $(this).closest('div[for="sizes"]').remove();
+            const sizes = $('div[for="sizes"]');
+            for (let index in sizes) {
+                setIndexToProductSize(sizes[index], index);
+            }
+        });
+        const setIndexToProductSize = (size, index) => {
+            let sizeInputs = $(size).find("input.form-control");
+            $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
+            $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
+        }
+    </script>
 
-        size.find('.add-size').remove();
-        $('#frmItem .modal-body').append(size);
-    });
-
-    $(document).on('click', '.remove-size', function () {
-        $(this).closest('div[for="sizes"]').remove();
-         const sizes = $('div[for="sizes"]');
-         for(let index in sizes)
-         {
-             setIndexToProductSize(sizes[index], index);
-         }
-    });
-
-    const setIndexToProductSize = (size, index) => {
-        let sizeInputs = $(size).find("input.form-control");
-        $(sizeInputs[0]).attr('name', `Product.ProductsDetails[${index}].Size`);
-        $(sizeInputs[1]).attr('name', `Product.ProductsDetails[${index}].Price`);
-    }
-</script>
 }
